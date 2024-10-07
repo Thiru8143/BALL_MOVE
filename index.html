@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        function create(){
+            var part=document.createElement('div');
+            let color=randomColor()
+            part.style.top='50px';
+            part.style.left='50px'; 
+            part.style.width='50px';
+            part.style.height='50px';
+            part.style.background=color;
+            part.style.borderRadius='50%';
+            part.style.borderColor = "black";
+            part.style.position='absolute';
+            document.body.appendChild(part)
+            return part
+        }
+        function randomColor(){
+            let palet=["purple","orange","green","maroon",]
+            let color=palet[Math.floor(Math.random()*4)]
+            return color
+        }
+        let arrTopDown = [];
+        let arrBottomUp = [];
+        let arrLeftRight = [];
+        let arrRightLeft = [];
+        
+        for(let i=0;i<2;i++){
+            arrTopDown.push(create());
+        }
+        for(let i=0;i<2;i++){
+            arrBottomUp.push(create());
+        }
+        for(let i=0;i<3;i++){
+            arrLeftRight.push(create());
+        }
+        for(let i=0;i<3;i++){
+            arrRightLeft.push(create());
+        }
+        
+        let positionsXTopDown = [];
+        let positionsYTopDown = [];
+        let velocitiesYTopDown = [];
+        let positionsXBottomUp = [];
+        let positionsYBottomUp = [];
+        let velocitiesYBottomUp = [];
+        
+        let positionsXLeftRight = [];
+        let positionsYLeftRight = [];
+        let velocitiesXLeftRight = [];
+        let velocitiesYLeftRight = [];
+        
+        let positionsXRightLeft = [];
+        let positionsYRightLeft = [];
+        let velocitiesXRightLeft = [];
+        let velocitiesYRightLeft = [];
+        
+        for(let i=0;i<arrTopDown.length;i++){
+            positionsXTopDown[i]=Math.floor(Math.random()* (1080-50)+50);
+            positionsYTopDown[i]=Math.floor(Math.random()* (500-50)+50);
+            velocitiesYTopDown[i]=Math.floor(Math.random()*(5-(-5))+(-5));
+        }
+        
+        for(let i=0;i<arrBottomUp.length;i++){
+            positionsXBottomUp[i]=Math.floor(Math.random()* (1080-50)+50);
+            positionsYBottomUp[i]=Math.floor(Math.random()* (500-50)+50);
+            velocitiesYBottomUp[i]=Math.floor(Math.random()*(5-(-5))+5);
+        }
+        
+        for(let i=0;i<arrLeftRight.length;i++){
+            positionsXLeftRight[i]=Math.floor(Math.random()* (500-50)+50);
+            positionsYLeftRight[i]=Math.floor(Math.random()* (500-50)+50);
+            velocitiesXLeftRight[i]=Math.floor(Math.random()*(5-(-5))+5);
+            velocitiesYLeftRight[i]=0; 
+        }
+        
+        for(let i=0;i<arrRightLeft.length;i++){
+            positionsXRightLeft[i]=Math.floor(Math.random()* (500-50)+50);
+            positionsYRightLeft[i]=Math.floor(Math.random()* (500-50)+50);
+            velocitiesXRightLeft[i]=Math.floor(Math.random()*(5-(-5))+(-5));
+            velocitiesYRightLeft[i]=0; 
+        }
+        
+        function move()
+        {
+            for(let i=0;i<arrTopDown.length;i++){
+                positionsYTopDown[i]+=velocitiesYTopDown[i];
+                if(positionsYTopDown[i]>500 || positionsYTopDown[i]<0){
+                    velocitiesYTopDown[i]*=-1;
+                }
+                arrTopDown[i].style.top=positionsYTopDown[i]+'px';
+                arrTopDown[i].style.left=positionsXTopDown[i]+'px';
+                
+            }
+            
+            for(let i=0;i<arrBottomUp.length;i++){
+                positionsYBottomUp[i]+=velocitiesYBottomUp[i];
+                if(positionsYBottomUp[i]>500 || positionsYBottomUp[i]<0){
+                    velocitiesYBottomUp[i]*=-1;
+                }
+                arrBottomUp[i].style.top=positionsYBottomUp[i]+'px';
+                arrBottomUp[i].style.left=positionsXBottomUp[i]+'px';
+                
+            }
+            
+            for(let i=0;i<arrLeftRight.length;i++){
+                positionsXLeftRight[i]+=velocitiesXLeftRight[i];
+                if(positionsXLeftRight[i]>1080 || positionsXLeftRight[i]<0){
+                    velocitiesXLeftRight[i]*=-1;
+                }
+                arrLeftRight[i].style.left=positionsXLeftRight[i]+'px';
+                arrLeftRight[i].style.top=positionsYLeftRight[i]+'px';
+                
+            }
+            
+            for(let i=0;i<arrRightLeft.length;i++){
+                positionsXRightLeft[i]+=velocitiesXRightLeft[i];
+                if(positionsXRightLeft[i]>1080 || positionsXRightLeft[i]<0){
+                    velocitiesXRightLeft[i]*=-1;
+                }
+                arrRightLeft[i].style.left=positionsXRightLeft[i]+'px';
+                arrRightLeft[i].style.top=positionsYRightLeft[i]+'px';
+                
+            }
+            
+        }    
+        setInterval(move, 16);
+    </script>
+</body>
+</html>
